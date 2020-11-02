@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        
+        function computerPlay() {
+            RPSIndex = Math.floor(Math.random() * 3);
+
+            switch (RPSIndex) {
+                case 0 :
+                    return 'Rock';
+                    break;
+                case 1 :
+                    return 'Paper';
+                    break;
+                case 2 :
+                    return 'Scissors';
+                    break;
+                default :
+                    console.log('Error');
+            }
+        }
+
+        let playerSelection = prompt('Enter your selection: ', '').toLowerCase();
+        let computerSelection = computerPlay();
+
+        function playRound(playerSelection, computerSelection) {
+
+            switch (playerSelection) {
+                case 'rock':
+                    switch (computerSelection) {
+                        case 'Rock':
+                            console.log('Draw!');
+                            break;
+
+                        case 'Paper':
+                            computerWinCount++;
+                            console.log('You lose!'); 
+                            break;
+                        
+                        case 'Scissors':
+                            playerWinCount++; 
+                            console.log('You win!');
+                            break;
+                        default:
+                            return 'Rock error'
+                            break;
+                    }
+                break;
+
+                case 'paper':
+                    switch (computerSelection) {
+                        case 'Rock':
+                            playerWinCount++; 
+                            console.log('You win!');
+                            break;
+
+                        case 'Paper':
+                            console.log('Draw!');
+                            break;
+                        
+                        case 'Scissors':
+                            computerWinCount++;
+                            console.log('You lose!'); 
+                            break;
+                        default:
+                            return 'Paper error'
+                            break;
+                    }
+                break;
+
+                case 'scissors':
+                    switch (computerSelection) {
+                        case 'Rock':
+                            computerWinCount++;
+                            console.log('You lose!'); 
+                            break;
+
+                        case 'Paper':
+                            playerWinCount++;
+                            console.log('You win!');
+                            break;
+                        
+                        case 'Scissors':
+                            console.log('Draw!');
+                            break;
+                        default:
+                            return 'Scissors error'
+                            break;
+                    }
+                break;
+            
+                default:
+                    return 'Error';
+                    break;
+            }
+
+            
+        }
+
+        let playerWinCount = 0;
+        let computerWinCount = 0;
+
+        function game() {
+            for (let i = 0; i < 5; i++) {
+                computerSelection = computerPlay();
+                
+                console.log(playerSelection.toUpperCase());
+                console.log(computerSelection.toUpperCase());
+
+                playRound(playerSelection, computerSelection);
+
+                console.log(`Current result: ${playerWinCount} - ${computerWinCount}`);
+            }
+
+            if (playerWinCount > computerWinCount) {
+                return 'You win this match!';
+            } else if (computerWinCount > playerWinCount) {
+                return 'You lose this match!';
+            } else {
+                return 'Draw!';
+            }
+        }
+
+        console.log(game());
+    </script>
+</body>
+</html>
