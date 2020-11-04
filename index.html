@@ -26,7 +26,8 @@
             }
         }
 
-        let playerSelection = prompt('Enter your selection: ', '').toLowerCase();
+        let playerSelection = prompt('Enter your selection: ', '')
+            .toLowerCase();
         let computerSelection = computerPlay();
 
         function playRound(playerSelection, computerSelection) {
@@ -115,7 +116,8 @@
 
                 playRound(playerSelection, computerSelection);
 
-                console.log(`Current result: ${playerWinCount} - ${computerWinCount}`);
+                console.log(`Current result: ${playerWinCount} - 
+                        ${computerWinCount}`);
             }
 
             if (playerWinCount > computerWinCount) {
