@@ -15,14 +15,14 @@
         </div>
     
         <div class="results">
-            <p id="round">Ready to Play!</p>
-            <p id="score">0 - 0</p>
+            <p class="round">Ready to Play!</p>
+            <p class="score">0 - 0</p>
         </div>
     </main>
 
     <script>
         function computerPlay() {
-            RPSIndex = Math.round(Math.random() * 3);
+            RPSIndex = Math.round(Math.random() * 2);
 
             switch (RPSIndex) {
                 case 0 :
@@ -35,7 +35,7 @@
                     return 'Scissors';
                     break;
                 default :
-                    console.log('Error');
+                    console.log('Error2');
             }
         }
 
@@ -44,8 +44,8 @@
         const scissors = document.querySelector('#scissors');
 
         const results = document.querySelector('.results');
-        const round = document.querySelector('#round');
-        const score = document.querySelector('#score');
+        const round = document.querySelector('.round');
+        const score = document.querySelector('.score');
 
         rock.addEventListener('click', playRound);
         paper.addEventListener('click', playRound);
@@ -58,24 +58,27 @@
             let computerSelection = computerPlay();
             let playerSelection = event.target.id;
 
-            console.log(playerSelection);
-            console.log(computerSelection);
+            //console.log(event.target);
+            //console.log(computerSelection);
 
             switch (playerSelection) {
                 case 'rock':
                     switch (computerSelection) {
                         case 'Rock':
                             round.textContent = 'Draw!';
+                            round.classList.add('fadeIn');
                             break;
 
                         case 'Paper':
                             computerWinCount++;
                             round.textContent = 'You Lose!';
+                            round.classList.add('fadeIn');
                             break;
                         
                         case 'Scissors':
                             playerWinCount++; 
                             round.textContent = 'You Win!';
+                            round.classList.add('fadeIn');
                             break;
                         default:
                             return 'Rock error'
@@ -88,15 +91,18 @@
                         case 'Rock':
                             playerWinCount++; 
                             round.textContent = 'You Win!';
+                            round.classList.add('fadeIn');
                             break;
 
                         case 'Paper':
                             round.textContent = 'Draw!';
+                            round.classList.add('fadeIn');
                             break;
                         
                         case 'Scissors':
                             computerWinCount++;
                             round.textContent = 'You Lose!';
+                            round.classList.add('fadeIn');
                             break;
                         default:
                             return 'Paper error'
@@ -109,15 +115,18 @@
                         case 'Rock':
                             computerWinCount++;
                             round.textContent = 'You Lose!';
+                            round.classList.add('fadeIn');
                             break;
 
                         case 'Paper':
                             playerWinCount++;
                             round.textContent = 'You Win!';
+                            round.classList.add('fadeIn');
                             break;
                         
                         case 'Scissors':
                             round.textContent = 'Draw!';
+                            round.classList.add('fadeIn');
                             break;
                         default:
                             return 'Scissors error'
@@ -126,19 +135,27 @@
                 break;
             
                 default:
-                    return 'Error';
+                    return 'Error1';
                     break;
             }
             
             score.textContent = `${playerWinCount} - ${computerWinCount}`;
 
             if (playerWinCount >= 5) {
+                playerWinCount = 0;
+                computerWinCount = 0;
                 round.textContent = 'Player Won the Game!';
                 score.textContent = '0 - 0';
             } else if (computerWinCount >= 5) {
+                playerWinCount = 0;
+                computerWinCount = 0;
                 round.textContent = 'Computer Won the Game!';
                 score.textContent = '0 - 0';
             }
+
+            round.addEventListener('transitionend', (event) => {
+                event.target.classList.remove('fadeIn');
+            });
         }
     </script>
 </body>

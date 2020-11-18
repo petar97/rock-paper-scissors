@@ -32,3 +32,11 @@ button {
     font-size: 50px;
     text-align: center;
 }
+
+.round {
+    transition: all ease-in .2s;
+}
+
+.fadeIn {
+    transform: translateY(-5px)
+}
