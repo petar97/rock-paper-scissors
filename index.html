@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <main>
+        <div class="buttons">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+    
+        <div class="results">
+            <p id="round">Ready to Play!</p>
+            <p id="score">0 - 0</p>
+        </div>
+    </main>
+
     <script>
-        
         function computerPlay() {
-            RPSIndex = Math.floor(Math.random() * 3);
+            RPSIndex = Math.round(Math.random() * 3);
 
             switch (RPSIndex) {
                 case 0 :
@@ -26,27 +39,43 @@
             }
         }
 
-        let playerSelection = prompt('Enter your selection: ', '')
-            .toLowerCase();
-        let computerSelection = computerPlay();
+        const rock = document.querySelector('#rock');
+        const paper = document.querySelector('#paper');
+        const scissors = document.querySelector('#scissors');
 
-        function playRound(playerSelection, computerSelection) {
+        const results = document.querySelector('.results');
+        const round = document.querySelector('#round');
+        const score = document.querySelector('#score');
+
+        rock.addEventListener('click', playRound);
+        paper.addEventListener('click', playRound);
+        scissors.addEventListener('click', playRound);
+
+        let playerWinCount = 0;
+        let computerWinCount = 0;
+
+        function playRound(event) {
+            let computerSelection = computerPlay();
+            let playerSelection = event.target.id;
+
+            console.log(playerSelection);
+            console.log(computerSelection);
 
             switch (playerSelection) {
                 case 'rock':
                     switch (computerSelection) {
                         case 'Rock':
-                            console.log('Draw!');
+                            round.textContent = 'Draw!';
                             break;
 
                         case 'Paper':
                             computerWinCount++;
-                            console.log('You lose!'); 
+                            round.textContent = 'You Lose!';
                             break;
                         
                         case 'Scissors':
                             playerWinCount++; 
-                            console.log('You win!');
+                            round.textContent = 'You Win!';
                             break;
                         default:
                             return 'Rock error'
@@ -58,16 +87,16 @@
                     switch (computerSelection) {
                         case 'Rock':
                             playerWinCount++; 
-                            console.log('You win!');
+                            round.textContent = 'You Win!';
                             break;
 
                         case 'Paper':
-                            console.log('Draw!');
+                            round.textContent = 'Draw!';
                             break;
                         
                         case 'Scissors':
                             computerWinCount++;
-                            console.log('You lose!'); 
+                            round.textContent = 'You Lose!';
                             break;
                         default:
                             return 'Paper error'
@@ -79,16 +108,16 @@
                     switch (computerSelection) {
                         case 'Rock':
                             computerWinCount++;
-                            console.log('You lose!'); 
+                            round.textContent = 'You Lose!';
                             break;
 
                         case 'Paper':
                             playerWinCount++;
-                            console.log('You win!');
+                            round.textContent = 'You Win!';
                             break;
                         
                         case 'Scissors':
-                            console.log('Draw!');
+                            round.textContent = 'Draw!';
                             break;
                         default:
                             return 'Scissors error'
@@ -100,36 +129,17 @@
                     return 'Error';
                     break;
             }
-
             
-        }
+            score.textContent = `${playerWinCount} - ${computerWinCount}`;
 
-        let playerWinCount = 0;
-        let computerWinCount = 0;
-
-        function game() {
-            for (let i = 0; i < 5; i++) {
-                computerSelection = computerPlay();
-                
-                console.log(playerSelection.toUpperCase());
-                console.log(computerSelection.toUpperCase());
-
-                playRound(playerSelection, computerSelection);
-
-                console.log(`Current result: ${playerWinCount} - 
-                        ${computerWinCount}`);
-            }
-
-            if (playerWinCount > computerWinCount) {
-                return 'You win this match!';
-            } else if (computerWinCount > playerWinCount) {
-                return 'You lose this match!';
-            } else {
-                return 'Draw!';
+            if (playerWinCount >= 5) {
+                round.textContent = 'Player Won the Game!';
+                score.textContent = '0 - 0';
+            } else if (computerWinCount >= 5) {
+                round.textContent = 'Computer Won the Game!';
+                score.textContent = '0 - 0';
             }
         }
-
-        console.log(game());
     </script>
 </body>
 </html>
